@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111082041) do
+ActiveRecord::Schema.define(version: 20160208175728) do
 
   create_table "form_emails", force: :cascade do |t|
     t.boolean  "with_email", default: false
@@ -158,6 +158,15 @@ ActiveRecord::Schema.define(version: 20160111082041) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "viewable_blocks", ["uuid"], name: "index_viewable_blocks_on_uuid"
+
+  create_table "viewable_class_selectors", force: :cascade do |t|
+    t.string   "main_class"
+    t.string   "extra_classes"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "viewable_forms", force: :cascade do |t|
     t.integer  "structure_id"
     t.string   "uuid"
@@ -171,6 +180,7 @@ ActiveRecord::Schema.define(version: 20160111082041) do
 
   add_index "viewable_forms", ["structure_id"], name: "index_viewable_forms_on_structure_id"
   add_index "viewable_forms", ["url"], name: "index_viewable_forms_on_url"
+  add_index "viewable_forms", ["uuid"], name: "index_viewable_forms_on_uuid"
 
   create_table "viewable_images", force: :cascade do |t|
     t.string   "title"
@@ -201,10 +211,17 @@ ActiveRecord::Schema.define(version: 20160111082041) do
   end
 
   add_index "viewable_pages", ["url"], name: "index_viewable_pages_on_url"
+  add_index "viewable_pages", ["uuid"], name: "index_viewable_pages_on_uuid"
 
   create_table "viewable_selects", force: :cascade do |t|
     t.string   "value"
     t.string   "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "viewable_strings", force: :cascade do |t|
+    t.string   "string"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
