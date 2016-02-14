@@ -5,7 +5,7 @@ describe CMS::ViewHelper, type: :helper do
     before(:each) do
       I18n.locale = :fr
       allow(controller).to receive(:action_name).and_return('show')
-      allow(params).to receive(:[]).with(:cms_body_class).and_return('page')
+      allow(params).to receive(:[]).with(:cms_view_type).and_return('page')
       helper.class.send(:define_method, :cms_edit_mode?) { true }
     end
 
