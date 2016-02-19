@@ -2,7 +2,6 @@
 
 <% cms_cache do
    links = cms_link(0, Float::INFINITY)
-   texts = cms_text(0, Float::INFINITY)
    image = cms_view_image
    block = cms_view_example
 -%>
@@ -13,22 +12,15 @@
 </div>
 
 <div>
-  <%= links.ul_sortable_tag do %>
-    <% links.menu %>
-  <% end %>
-  <% links.active_link %>
-</div>
-
-<div>
-  <%= texts.ul_sortable_tag do %>
-    <% texts.each do |text| %>
-      <%= text.li_sortable_tag do %>
-        <%= text.html %>
-        <%= text.edit_link %>
-      <% end %>
+  <ul <%= links.sortable_html %>>
+    <%= links.each do |link| %>
+      <li <%= link.sortable_html %>>
+        <%= link.link_to %>
+        <%= link.edit_link %>
+      </li>
     <% end %>
-    <li><%= texts.add_link %></li>
-  <% end %>
+  </ul>
+  <%= links.add_link%>
 </div>
 
 <div>

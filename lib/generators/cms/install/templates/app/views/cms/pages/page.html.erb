@@ -11,9 +11,10 @@
 <%#= view.edit_link %>
 <%#= view.add_link %>
 
-<%= menu.ul_sortable_tag do %>
+<%= content_tag(:ul, menu.sortable) do %>
   <% menu.each do |link| %>
-    <%= link.li_link_to_with_edit %>
+    <%= link.sortable_link_to %>
+    <%= link.edit_link %>
   <% end %>
 <% end %>
 <%= menu.add_link %>
