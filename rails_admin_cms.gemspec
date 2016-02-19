@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "rails_admin_cms"
   s.version     = RailsAdminCMS::VERSION
   s.authors     = ["Patrice Lebel"]
-  s.email       = ["patrice@lebel.com"]
+  s.email       = ["patleb@users.noreply.github.com"]
   s.homepage    = "https://github.com/o2web/rails_admin_cms"
   s.summary     = "Flexible Content Management Framework for RailsAdmin"
   s.description = "Flexible Content Management Framework for RailsAdmin."
