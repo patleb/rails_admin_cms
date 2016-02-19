@@ -1,19 +1,25 @@
 module Viewable
   class LinkPresenter < ViewablePresenter
     def link_to(name = nil, options = {})
-      h.active_link_to *normalize_link_options(name, options)
-    end
-
-    def li_link_to(name = nil, options = {})
-      li_sortable_tag options[:li] do
+      if block_given?
+        options = normalize_link_options(nil, name)
+        name = options.first
+        h.active_link_to(*options.drop(1)) do
+          h.concat name
+          yield
+         end
+      else
         h.active_link_to *normalize_link_options(name, options)
       end
     end
 
-    def li_link_to_with_edit(name = nil, options = {})
-      li_sortable_tag options[:li] do
-        h.concat h.active_link_to(*normalize_link_options(name, options))
-        h.concat edit_link
+    def sortable_link_to(name_or_options = nil, options = {})
+      if block_given?
+        link_to(sortable(name_or_options || {})) do
+          yield
+        end
+      else
+        link_to(name_or_options, sortable(options))
       end
     end
 
