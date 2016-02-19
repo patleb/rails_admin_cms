@@ -66,7 +66,7 @@ module CMS
 
       path = "#{request.path}?#{{ edit_mode: !cms_edit_mode? }.to_query}"
 
-      link_to next_mode, path, class: 'cms-edit-mode-link', 'data-no-turbolink' => true
+      link_to next_mode, path, class: 'cms-edit-mode-link'
     end
 
     def cms_list_key(type, name)

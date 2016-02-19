@@ -1,7 +1,7 @@
 $.fn.extend
   data_js: (name = null) ->
     if name?
-      $(this).data("js-#{ name }")
+      $(this).data("js-#{name}")
     else
       for key, value of $(this).data()
         if key.match /^js/
@@ -10,7 +10,6 @@ $.fn.extend
 class CMS
   @start: =>
     @ready =>
-      @clear_event_handlers()
       @flash_messages()
       @validate_mailchimp()
 
@@ -20,25 +19,16 @@ class CMS
     @ready_with_scope 'cms-edit-mode', =>
       @data_js('cms-sortable').each ->
         $(this).sortable
+          items: '> [data-js-cms-sortable-id]',
           update: (event, ui) ->
             url = $(this).data_js()['url']
 
             target = $(ui.item)
             id = target.data_js('cms-sortable-id')
-            unique_key = { position: target.index() + 1 }
+            unique_key = { position: target.siblings('[data-js-cms-sortable-id]').andSelf().index(target) + 1 }
             payload = $.param(id: id, unique_key: unique_key)
 
             $.post(url, payload)
-
-
-  # https://github.com/gemgento/rails_script/blob/master/lib/generators/rails_script/install/templates/base.js.coffee
-  @clear_event_handlers: =>
-    $(document).on 'page:before-change', ->
-      for element in [window, document]
-        for event, handlers of ($._data(element, 'events') || {})
-          for handler in handlers
-            if handler? && handler.namespace == ''
-              $(element).off event, handler.handler
 
   @flash_messages: =>
     @data_js('cms-flash').fadeIn().delay(3500).fadeOut(800)
@@ -92,7 +82,7 @@ class CMS
       @with_scope(body_class, handler)
 
   @ready: (handler) =>
-    $(document).on 'ready, page:change', ->
+    $(document).ready ->
       handler()
 
   @data_js_on: (name, events, handler) =>
